@@ -1,0 +1,47 @@
+role,skill,type
+Data Analyst,sql,required
+Data Analyst,python,required
+Data Analyst,excel,required
+Data Analyst,tableau,required
+Data Analyst,statistics,required
+Data Analyst,machine learning,preferred
+Data Analyst,r,preferred
+Data Analyst,powerbi,preferred
+Data Analyst,data visualization,preferred
+Software Engineer,java,required
+Software Engineer,python,required
+Software Engineer,javascript,required
+Software Engineer,data structures,required
+Software Engineer,algorithms,required
+Software Engineer,react,preferred
+Software Engineer,node.js,preferred
+Software Engineer,docker,preferred
+Software Engineer,aws,preferred
+Software Engineer,git,preferred
+Product Manager,agile,required
+Product Manager,scrum,required
+Product Manager,product strategy,required
+Product Manager,communication,required
+Product Manager,jira,required
+Product Manager,data analysis,preferred
+Product Manager,ux design,preferred
+Product Manager,market research,preferred
+Product Manager,roadmapping,preferred
+UX Designer,figma,required
+UX Designer,wireframing,required
+UX Designer,prototyping,required
+UX Designer,user research,required
+UX Designer,ui design,required
+UX Designer,adobe xd,preferred
+UX Designer,html,preferred
+UX Designer,css,preferred
+UX Designer,interaction design,preferred
+Data Scientist,python,required
+Data Scientist,machine learning,required
+Data Scientist,statistics,required
+Data Scientist,sql,required
+Data Scientist,deep learning,required
+Data Scientist,nlp,preferred
+Data Scientist,computer vision,preferred
+Data Scientist,tensorflow,preferred
+Data Scientist,pytorch,preferred
