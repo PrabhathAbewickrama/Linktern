@@ -17,24 +17,43 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "Career Advisor API is running" });
 });
 
+app.get("/api/health", (req, res) => {
+  const mongoReady = mongoose.connection.readyState === 1;
+  res.status(200).json({
+    status: "ok",
+    mongo: mongoReady ? "connected" : "disconnected",
+  });
+});
+
 app.use("/api/chat", chatRouter);
 
-const startServer = async () => {
-  try {
-    if (!MONGODB_URI) {
-      throw new Error("MONGODB_URI is missing in environment variables");
-    }
-
-    await mongoose.connect(MONGODB_URI);
-    console.log("MongoDB connected");
-
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  } catch (error) {
-    console.error("Server startup failed:", error.message);
-    process.exit(1);
+const connectMongo = async () => {
+  if (!MONGODB_URI) {
+    console.warn(
+      "MONGODB_URI is missing. Running without MongoDB persistence."
+    );
+    return;
   }
+
+  try {
+    await mongoose.connect(MONGODB_URI, {
+      serverSelectionTimeoutMS: 10000,
+    });
+    console.log("MongoDB connected");
+  } catch (error) {
+    console.error(
+      "MongoDB connection failed. API will continue without DB persistence:",
+      error.message
+    );
+  }
+};
+
+const startServer = async () => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+
+  await connectMongo();
 };
 
 startServer();
