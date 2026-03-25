@@ -1,0 +1,36 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Node
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+*.log
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+
+# Python artifacts (backend utilities/notebooks)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Coverage and caches
+coverage/
+.nyc_output/
+.cache/
+.eslintcache
+.vite/
