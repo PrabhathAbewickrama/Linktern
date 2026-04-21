@@ -1,10 +1,14 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import multer from "multer";
+import { exec } from "child_process";
+import { PDFParse } from "pdf-parse";
 
 dotenv.config();
 
 const app = express();
+const upload = multer({ storage: multer.memoryStorage() });
 
 app.use(cors());
 app.use(express.json());
@@ -24,14 +28,15 @@ app.get("/api/roles", (req, res) => {
       "QA Engineer",
       "UI/UX Designer",
       "Data Analyst",
-      "Machine Learning Engineer"
-    ]
+      "Machine Learning Engineer",
+    ],
   });
 });
 
 // Skill gap analyzer route
-app.post("/api/skill-gap-ai", (req, res) => {
-  const { currentSkills, targetRole } = req.body;
+app.post("/api/skill-gap-ai", upload.single("cv"), async (req, res) => {
+  const { targetRole } = req.body;
+  const file = req.file;
 
   const roleSkillsMap = {
     "Frontend Developer": [
@@ -40,7 +45,7 @@ app.post("/api/skill-gap-ai", (req, res) => {
       "JavaScript",
       "React",
       "Git",
-      "Responsive Design"
+      "Responsive Design",
     ],
     "Backend Developer": [
       "Node.js",
@@ -48,7 +53,7 @@ app.post("/api/skill-gap-ai", (req, res) => {
       "MongoDB",
       "REST API",
       "JWT",
-      "Git"
+      "Git",
     ],
     "Full Stack Developer": [
       "HTML",
@@ -59,7 +64,7 @@ app.post("/api/skill-gap-ai", (req, res) => {
       "Express.js",
       "MongoDB",
       "REST API",
-      "Git"
+      "Git",
     ],
     "QA Engineer": [
       "Manual Testing",
@@ -67,7 +72,7 @@ app.post("/api/skill-gap-ai", (req, res) => {
       "Bug Reporting",
       "Selenium",
       "Postman",
-      "SQL"
+      "SQL",
     ],
     "UI/UX Designer": [
       "Figma",
@@ -75,7 +80,7 @@ app.post("/api/skill-gap-ai", (req, res) => {
       "Prototyping",
       "User Research",
       "Typography",
-      "Color Theory"
+      "Color Theory",
     ],
     "Data Analyst": [
       "Excel",
@@ -83,7 +88,7 @@ app.post("/api/skill-gap-ai", (req, res) => {
       "Python",
       "Power BI",
       "Statistics",
-      "Data Visualization"
+      "Data Visualization",
     ],
     "Machine Learning Engineer": [
       "Python",
@@ -91,12 +96,53 @@ app.post("/api/skill-gap-ai", (req, res) => {
       "Pandas",
       "Scikit-learn",
       "Machine Learning",
-      "Data Preprocessing"
-    ]
+      "Data Preprocessing",
+    ],
   };
 
   const requiredSkills = roleSkillsMap[targetRole] || [];
-  const studentSkills = Array.isArray(currentSkills) ? currentSkills : [];
+  let studentSkills = [];
+
+  if (!targetRole) {
+    return res.status(400).json({
+      success: false,
+      error: "Please provide a target role.",
+    });
+  }
+
+  if (!file) {
+    return res.status(400).json({
+      success: false,
+      error: "Please upload a valid PDF CV.",
+    });
+  }
+
+  if (file.mimetype !== "application/pdf") {
+    return res.status(400).json({
+      success: false,
+      error: "Uploaded file must be a PDF.",
+    });
+  }
+
+  try {
+    const parser = new PDFParse({ data: file.buffer });
+    const result = await parser.getText();
+    await parser.destroy();
+
+    const text = (result.text || "").toLowerCase();
+
+    const allKnownSkills = [...new Set(Object.values(roleSkillsMap).flat())];
+
+    studentSkills = allKnownSkills.filter((skill) =>
+      text.includes(skill.toLowerCase())
+    );
+  } catch (err) {
+    console.error("Error parsing PDF:", err);
+    return res.status(500).json({
+      success: false,
+      error: "Failed to read CV document.",
+    });
+  }
 
   const normalizedStudentSkills = studentSkills.map((skill) =>
     skill.trim().toLowerCase()
@@ -130,66 +176,67 @@ app.post("/api/skill-gap-ai", (req, res) => {
     level,
     recommendations: missingSkills.map(
       (skill) => `Improve your knowledge in ${skill}`
-    )
+    ),
   });
 });
 
-/*
-// Demand prediction route
-app.post("/api/predict-demand-ai", (req, res) => {
-  const { targetRole } = req.body;
+// Course recommendations route
+app.post("/api/course-recommendations", (req, res) => {
+  const { missingSkills, difficulty } = req.body;
 
-  const demandMap = {
-    "Frontend Developer": {
-      predictedDemand: "High",
-      reason: "Modern web applications need frontend developers."
-    },
-    "Backend Developer": {
-      predictedDemand: "High",
-      reason: "Backend systems and APIs are always in demand."
-    },
-    "Full Stack Developer": {
-      predictedDemand: "Very High",
-      reason: "Full stack developers can handle both frontend and backend."
-    },
-    "QA Engineer": {
-      predictedDemand: "Medium",
-      reason: "Quality assurance remains important in software teams."
-    },
-    "UI/UX Designer": {
-      predictedDemand: "High",
-      reason: "User-friendly product design is very valuable."
-    },
-    "Data Analyst": {
-      predictedDemand: "High",
-      reason: "Businesses depend on data-driven decisions."
-    },
-    "Machine Learning Engineer": {
-      predictedDemand: "Very High",
-      reason: "AI and machine learning jobs are rapidly growing."
+  if (!missingSkills || !Array.isArray(missingSkills)) {
+    return res.status(400).json({
+      success: false,
+      error: "Missing or invalid missingSkills array.",
+    });
+  }
+
+  if (
+    !difficulty ||
+    !["low", "medium", "high"].includes(difficulty.toLowerCase())
+  ) {
+    return res.status(400).json({
+      success: false,
+      error: "Difficulty must be one of: low, medium, high.",
+    });
+  }
+
+  const missingSkillsStr = JSON.stringify(missingSkills).replace(/"/g, '\\"');
+  const command = `python services/course_recommender.py "${missingSkillsStr}" "${difficulty}"`;
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing ML script: ${error.message}`);
+      if (stderr) console.error(stderr);
+      return res.status(500).json({
+        success: false,
+        error: "Internal server error during recommendation.",
+      });
     }
-  };
 
-  const result = demandMap[targetRole] || {
-    predictedDemand: "Medium",
-    reason: "This role has moderate market demand."
-  };
+    try {
+      const output = JSON.parse(stdout);
 
-  res.json({
-    success: true,
-    targetRole,
-    predictedDemand: result.predictedDemand,
-    reason: result.reason,
-    suggestions: [
-      "Build practical projects",
-      "Improve your portfolio",
-      "Practice interview questions",
-      "Learn current industry tools"
-    ]
+      if (output.error) {
+        return res.status(500).json({
+          success: false,
+          error: output.error,
+        });
+      }
+
+      res.json({
+        success: true,
+        ...output,
+      });
+    } catch (parseError) {
+      console.error("Failed to parse ML script output:", stdout);
+      return res.status(500).json({
+        success: false,
+        error: "Invalid ML output model.",
+      });
+    }
   });
 });
-
-*/
 
 const PORT = process.env.PORT || 5000;
 
