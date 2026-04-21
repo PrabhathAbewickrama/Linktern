@@ -2,16 +2,13 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import multer from "multer";
-import { createRequire } from "module";
 import { exec } from "child_process";
-const require = createRequire(import.meta.url);
-const pdfParse = require("pdf-parse");
+import { PDFParse } from "pdf-parse";
 
 dotenv.config();
 
-const upload = multer({ storage: multer.memoryStorage() });
-
 const app = express();
+const upload = multer({ storage: multer.memoryStorage() });
 
 app.use(cors());
 app.use(express.json());
@@ -31,13 +28,13 @@ app.get("/api/roles", (req, res) => {
       "QA Engineer",
       "UI/UX Designer",
       "Data Analyst",
-      "Machine Learning Engineer"
-    ]
+      "Machine Learning Engineer",
+    ],
   });
 });
 
 // Skill gap analyzer route
-app.post("/api/skill-gap-ai", upload.single('cv'), async (req, res) => {
+app.post("/api/skill-gap-ai", upload.single("cv"), async (req, res) => {
   const { targetRole } = req.body;
   const file = req.file;
 
@@ -48,7 +45,7 @@ app.post("/api/skill-gap-ai", upload.single('cv'), async (req, res) => {
       "JavaScript",
       "React",
       "Git",
-      "Responsive Design"
+      "Responsive Design",
     ],
     "Backend Developer": [
       "Node.js",
@@ -56,7 +53,7 @@ app.post("/api/skill-gap-ai", upload.single('cv'), async (req, res) => {
       "MongoDB",
       "REST API",
       "JWT",
-      "Git"
+      "Git",
     ],
     "Full Stack Developer": [
       "HTML",
@@ -67,7 +64,7 @@ app.post("/api/skill-gap-ai", upload.single('cv'), async (req, res) => {
       "Express.js",
       "MongoDB",
       "REST API",
-      "Git"
+      "Git",
     ],
     "QA Engineer": [
       "Manual Testing",
@@ -75,7 +72,7 @@ app.post("/api/skill-gap-ai", upload.single('cv'), async (req, res) => {
       "Bug Reporting",
       "Selenium",
       "Postman",
-      "SQL"
+      "SQL",
     ],
     "UI/UX Designer": [
       "Figma",
@@ -83,7 +80,7 @@ app.post("/api/skill-gap-ai", upload.single('cv'), async (req, res) => {
       "Prototyping",
       "User Research",
       "Typography",
-      "Color Theory"
+      "Color Theory",
     ],
     "Data Analyst": [
       "Excel",
@@ -91,7 +88,7 @@ app.post("/api/skill-gap-ai", upload.single('cv'), async (req, res) => {
       "Python",
       "Power BI",
       "Statistics",
-      "Data Visualization"
+      "Data Visualization",
     ],
     "Machine Learning Engineer": [
       "Python",
@@ -99,36 +96,52 @@ app.post("/api/skill-gap-ai", upload.single('cv'), async (req, res) => {
       "Pandas",
       "Scikit-learn",
       "Machine Learning",
-      "Data Preprocessing"
-    ]
+      "Data Preprocessing",
+    ],
   };
 
   const requiredSkills = roleSkillsMap[targetRole] || [];
-  
   let studentSkills = [];
+
   if (!targetRole) {
-    return res.status(400).json({ success: false, error: "Please provide a target role." });
+    return res.status(400).json({
+      success: false,
+      error: "Please provide a target role.",
+    });
   }
 
   if (!file) {
-    return res.status(400).json({ success: false, error: "Please upload a valid PDF CV." });
+    return res.status(400).json({
+      success: false,
+      error: "Please upload a valid PDF CV.",
+    });
   }
 
-  if (file.mimetype !== 'application/pdf') {
-    return res.status(400).json({ success: false, error: "Uploaded file must be a PDF." });
+  if (file.mimetype !== "application/pdf") {
+    return res.status(400).json({
+      success: false,
+      error: "Uploaded file must be a PDF.",
+    });
   }
 
   try {
-    const data = await pdfParse(file.buffer);
-    const text = data.text.toLowerCase();
-    
-    // Flatten all known skills from the map to use as a dictionary
+    const parser = new PDFParse({ data: file.buffer });
+    const result = await parser.getText();
+    await parser.destroy();
+
+    const text = (result.text || "").toLowerCase();
+
     const allKnownSkills = [...new Set(Object.values(roleSkillsMap).flat())];
-    
-    studentSkills = allKnownSkills.filter(skill => text.includes(skill.toLowerCase()));
+
+    studentSkills = allKnownSkills.filter((skill) =>
+      text.includes(skill.toLowerCase())
+    );
   } catch (err) {
     console.error("Error parsing PDF:", err);
-    return res.status(500).json({ success: false, error: "Failed to read CV document." });
+    return res.status(500).json({
+      success: false,
+      error: "Failed to read CV document.",
+    });
   }
 
   const normalizedStudentSkills = studentSkills.map((skill) =>
@@ -163,22 +176,29 @@ app.post("/api/skill-gap-ai", upload.single('cv'), async (req, res) => {
     level,
     recommendations: missingSkills.map(
       (skill) => `Improve your knowledge in ${skill}`
-    )
+    ),
   });
 });
-
-
 
 // Course recommendations route
 app.post("/api/course-recommendations", (req, res) => {
   const { missingSkills, difficulty } = req.body;
 
   if (!missingSkills || !Array.isArray(missingSkills)) {
-    return res.status(400).json({ success: false, error: "Missing or invalid missingSkills array." });
+    return res.status(400).json({
+      success: false,
+      error: "Missing or invalid missingSkills array.",
+    });
   }
 
-  if (!difficulty || !["low", "medium", "high"].includes(difficulty.toLowerCase())) {
-    return res.status(400).json({ success: false, error: "Difficulty must be one of: low, medium, high." });
+  if (
+    !difficulty ||
+    !["low", "medium", "high"].includes(difficulty.toLowerCase())
+  ) {
+    return res.status(400).json({
+      success: false,
+      error: "Difficulty must be one of: low, medium, high.",
+    });
   }
 
   const missingSkillsStr = JSON.stringify(missingSkills).replace(/"/g, '\\"');
@@ -187,18 +207,33 @@ app.post("/api/course-recommendations", (req, res) => {
   exec(command, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing ML script: ${error.message}`);
-      return res.status(500).json({ success: false, error: "Internal server error during recommendation." });
+      if (stderr) console.error(stderr);
+      return res.status(500).json({
+        success: false,
+        error: "Internal server error during recommendation.",
+      });
     }
 
     try {
       const output = JSON.parse(stdout);
+
       if (output.error) {
-         return res.status(500).json({ success: false, error: output.error });
+        return res.status(500).json({
+          success: false,
+          error: output.error,
+        });
       }
-      res.json({ success: true, ...output });
+
+      res.json({
+        success: true,
+        ...output,
+      });
     } catch (parseError) {
       console.error("Failed to parse ML script output:", stdout);
-      return res.status(500).json({ success: false, error: "Invalid ML output model." });
+      return res.status(500).json({
+        success: false,
+        error: "Invalid ML output model.",
+      });
     }
   });
 });
