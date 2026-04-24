@@ -55,7 +55,10 @@ function Navbar() {
             )}
 
             {user.role === "student" && (
-              <Link to="/student-interviews">Interviews</Link>
+              <>
+                <Link to="/saved-internships">Saved</Link>
+                <Link to="/student-interviews">Interviews</Link>
+              </>
             )}
 
             {user.role === "admin" && (

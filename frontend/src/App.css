@@ -250,6 +250,13 @@ textarea {
   gap: 12px;
 }
 
+.card-top-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .card-top h2 {
   margin: 0;
   font-size: 22px;
@@ -266,6 +273,25 @@ textarea {
   white-space: nowrap;
 }
 
+.saved-badge,
+.deadline-alert-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.saved-badge {
+  background: rgba(14, 165, 233, 0.14);
+  color: #0284c7;
+}
+
+.deadline-alert-badge {
+  background: rgba(249, 115, 22, 0.16);
+  color: #ea580c;
+}
+
 .company-name {
   margin: 0;
   font-size: 17px;
@@ -277,6 +303,17 @@ textarea {
   margin: 0;
   color: var(--app-muted);
   font-size: 14px;
+}
+
+.deadline-note {
+  margin: -2px 0 0;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.deadline-note.near {
+  color: #ea580c;
 }
 
 .description {
@@ -307,7 +344,8 @@ textarea {
 }
 
 .details-btn,
-.apply-btn {
+.apply-btn,
+.save-internship-btn {
   flex: 1;
   text-align: center;
   text-decoration: none;
@@ -315,6 +353,9 @@ textarea {
   border-radius: 10px;
   font-weight: 600;
   transition: 0.3s;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 .details-btn {
@@ -326,6 +367,25 @@ textarea {
   background: #cbd5e1;
 }
 
+.save-internship-btn {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+}
+
+.save-internship-btn:hover {
+  background: rgba(37, 99, 235, 0.16);
+}
+
+.save-internship-btn.active {
+  background: rgba(14, 165, 233, 0.14);
+  color: #0284c7;
+}
+
+.save-internship-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
 .apply-btn {
   background: #4f46e5;
   color: white;
@@ -333,6 +393,75 @@ textarea {
 
 .apply-btn:hover {
   background: #4338ca;
+}
+
+.saved-internships-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 28px;
+  padding: 28px 30px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.18), transparent 24%),
+    linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(29, 78, 216, 0.78));
+  color: #ffffff;
+  box-shadow: var(--app-shadow);
+}
+
+.saved-internships-eyebrow {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.saved-internships-hero h1 {
+  margin: 14px 0 10px;
+  color: #ffffff;
+}
+
+.saved-internships-hero p {
+  margin: 0;
+  max-width: 680px;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.saved-internships-summary {
+  min-width: 180px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  text-align: center;
+}
+
+.saved-internships-summary strong {
+  display: block;
+  font-size: 34px;
+}
+
+.saved-internships-summary span {
+  color: rgba(226, 232, 240, 0.92);
+}
+
+.saved-internship-card {
+  position: relative;
+}
+
+.details-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.save-detail-btn.active {
+  background: rgba(14, 165, 233, 0.14);
+  color: #0284c7;
 }
 
 @media (max-width: 768px) {
@@ -346,6 +475,19 @@ textarea {
   }
 
   .card-actions {
+    flex-direction: column;
+  }
+
+  .saved-internships-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .saved-internships-summary {
+    width: 100%;
+  }
+
+  .details-actions {
     flex-direction: column;
   }
 

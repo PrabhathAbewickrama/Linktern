@@ -1,15 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
 import api from "../api";
 import { Link } from "react-router-dom";
+import { getStoredUser } from "../utils/session";
 
 function InternshipList() {
   const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [savedIds, setSavedIds] = useState([]);
+  const [savingId, setSavingId] = useState("");
 
   const [searchTerm, setSearchTerm] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const user = getStoredUser();
 
   useEffect(() => {
     const fetchInternships = async () => {
@@ -25,6 +29,41 @@ function InternshipList() {
 
     fetchInternships();
   }, []);
+
+  useEffect(() => {
+    const fetchSavedInternships = async () => {
+      if (!user || user.role !== "student") {
+        return;
+      }
+
+      try {
+        const res = await api.get("/internships/saved");
+        setSavedIds(res.data.map((item) => item._id));
+      } catch (error) {
+        console.log("Error fetching saved internships:", error);
+      }
+    };
+
+    fetchSavedInternships();
+  }, [user]);
+
+  const handleSaveToggle = async (internshipId, isSaved) => {
+    try {
+      setSavingId(internshipId);
+
+      if (isSaved) {
+        await api.delete(`/internships/${internshipId}/save`);
+        setSavedIds((current) => current.filter((id) => id !== internshipId));
+      } else {
+        await api.post(`/internships/${internshipId}/save`);
+        setSavedIds((current) => [...current, internshipId]);
+      }
+    } catch (error) {
+      alert(error.response?.data?.message || "Failed to update saved internships");
+    } finally {
+      setSavingId("");
+    }
+  };
 
   const filteredInternships = useMemo(() => {
     let filtered = [...internships];
@@ -116,7 +155,12 @@ function InternshipList() {
               <div key={item._id} className="internship-card">
                 <div className="card-top">
                   <h2>{item.title}</h2>
-                  <span className="type-badge">{item.type}</span>
+                  <div className="card-top-badges">
+                    <span className="type-badge">{item.type}</span>
+                    {savedIds.includes(item._id) && (
+                      <span className="saved-badge">Saved</span>
+                    )}
+                  </div>
                 </div>
 
                 <p className="company-name">{item.companyName}</p>
@@ -131,6 +175,20 @@ function InternshipList() {
                     ? new Date(item.deadline).toLocaleDateString()
                     : "Not provided"}
                 </p>
+
+                {item.deadline && (
+                  <p className="deadline-note">
+                    {Math.ceil(
+                      (new Date(item.deadline).getTime() - Date.now()) /
+                        (1000 * 60 * 60 * 24),
+                    ) >= 0
+                      ? `${Math.ceil(
+                          (new Date(item.deadline).getTime() - Date.now()) /
+                            (1000 * 60 * 60 * 24),
+                        )} day(s) left to apply`
+                      : "Deadline passed"}
+                  </p>
+                )}
 
                 <p className="description">
                   {(item.description || "").length > 120
@@ -147,6 +205,23 @@ function InternshipList() {
                 </div>
 
                 <div className="card-actions">
+                  <Link to={`/internship/${item._id}`} className="details-btn">
+                    View Details
+                  </Link>
+                  {user?.role === "student" && (
+                    <button
+                      type="button"
+                      className={`save-internship-btn ${savedIds.includes(item._id) ? "active" : ""}`}
+                      onClick={() => handleSaveToggle(item._id, savedIds.includes(item._id))}
+                      disabled={savingId === item._id}
+                    >
+                      {savingId === item._id
+                        ? "Saving..."
+                        : savedIds.includes(item._id)
+                          ? "Saved"
+                          : "Save"}
+                    </button>
+                  )}
                   <Link to={`/apply/${item._id}`} className="apply-btn">
                     Apply Now
                   </Link>

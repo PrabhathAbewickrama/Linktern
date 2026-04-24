@@ -4,6 +4,7 @@ import InternshipList from "./pages/InternshipList";
 import AddInternship from "./pages/AddInternship";
 import InternshipDetails from "./pages/InternshipDetails";
 import ApplyForm from "./pages/ApplyForm";
+import SavedInternships from "./pages/SavedInternships";
 import Login from "./pages/Login";
 import RegisterStudent from "./pages/RegisterStudent";
 import RegisterCompany from "./pages/RegisterCompany";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/" element={<Feed />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/internships" element={<InternshipList />} />
+          <Route path="/saved-internships" element={<SavedInternships />} />
           <Route path="/add" element={<AddInternship />} />
           <Route path="/internship/:id" element={<InternshipDetails />} />
           <Route path="/apply/:id" element={<ApplyForm />} />

@@ -81,6 +81,25 @@ const companyReviewSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+const savedInternshipSchema = new mongoose.Schema(
+  {
+    internship: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Internship",
+      required: true,
+    },
+    savedAt: {
+      type: Date,
+      default: Date.now,
+    },
+    deadlineAlertSentAt: {
+      type: Date,
+      default: null,
+    },
+  },
+  { _id: false },
+);
+
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -163,6 +182,7 @@ const userSchema = new mongoose.Schema(
       default: 0,
     },
     reviews: [companyReviewSchema],
+    savedInternships: [savedInternshipSchema],
   },
   { timestamps: true },
 );
