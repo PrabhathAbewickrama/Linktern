@@ -75,11 +75,12 @@ body {
 .filter-input {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--app-border);
   border-radius: 10px;
   font-size: 15px;
   outline: none;
-  background: #ffffff;
+  background: var(--app-surface-strong);
+  color: var(--app-text);
 }
 
 .filter-input:focus {
@@ -219,9 +220,9 @@ body {
 .form-card {
   width: 100%;
   max-width: 650px;
-  background: #ffffff;
+  background: var(--app-surface-strong);
   border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--app-shadow);
   padding: 32px;
 }
 
@@ -233,12 +234,12 @@ body {
 .form-header h1 {
   margin: 0 0 8px;
   font-size: 30px;
-  color: #1e293b;
+  color: var(--app-text);
 }
 
 .form-header p {
   margin: 0;
-  color: #64748b;
+  color: var(--app-muted);
   font-size: 15px;
 }
 
@@ -257,7 +258,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #334155;
+  color: var(--app-text);
 }
 
 .form-group input,
@@ -265,12 +266,13 @@ body {
 .form-group textarea {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--app-border);
   border-radius: 10px;
   font-size: 15px;
   transition: 0.3s;
   outline: none;
-  background: #f8fafc;
+  background: var(--app-surface-soft);
+  color: var(--app-text);
 }
 
 .form-group input:focus,
@@ -318,7 +320,7 @@ textarea {
 .list-page {
   min-height: 100vh;
   padding: 40px 20px;
-  background: linear-gradient(135deg, #3b82f6, #10b981);
+  background: transparent;
 }
 
 .list-container {
@@ -334,18 +336,18 @@ textarea {
 .list-header h1 {
   margin: 0 0 10px;
   font-size: 34px;
-  color: #1e293b;
+  color: var(--app-text);
 }
 
 .list-header p {
   margin: 0;
-  color: #64748b;
+  color: var(--app-muted);
   font-size: 16px;
 }
 
 .status-text {
   text-align: center;
-  color: #475569;
+  color: var(--app-muted);
   font-size: 16px;
   margin-top: 40px;
 }
@@ -357,14 +359,15 @@ textarea {
 }
 
 .internship-card {
-  background: #ffffff;
+  background: var(--app-surface-strong);
   border-radius: 18px;
   padding: 22px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--app-shadow);
   transition: 0.3s ease;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  border: 1px solid var(--app-border);
 }
 
 .internship-card:hover {
@@ -381,7 +384,7 @@ textarea {
 .card-top h2 {
   margin: 0;
   font-size: 22px;
-  color: #1e293b;
+  color: var(--app-text);
 }
 
 .type-badge {
@@ -398,18 +401,18 @@ textarea {
   margin: 0;
   font-size: 17px;
   font-weight: 600;
-  color: #334155;
+  color: var(--app-text);
 }
 
 .card-info {
   margin: 0;
-  color: #475569;
+  color: var(--app-muted);
   font-size: 14px;
 }
 
 .description {
   margin: 0;
-  color: #64748b;
+  color: var(--app-muted);
   font-size: 14px;
   line-height: 1.6;
 }
@@ -421,8 +424,8 @@ textarea {
 }
 
 .skill-tag {
-  background: #f1f5f9;
-  color: #334155;
+  background: var(--app-surface-soft);
+  color: var(--app-text);
   font-size: 13px;
   padding: 6px 10px;
   border-radius: 999px;
@@ -446,8 +449,8 @@ textarea {
 }
 
 .details-btn {
-  background: #e2e8f0;
-  color: #1e293b;
+  background: var(--app-surface-soft);
+  color: var(--app-text);
 }
 
 .details-btn:hover {
