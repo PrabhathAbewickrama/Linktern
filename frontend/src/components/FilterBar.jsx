@@ -2,13 +2,13 @@ import React from "react";
 
 function FilterBar({ filters, setFilters, onFilter, onReset }) {
     return (
-        <div style={styles.container}>
+        <div className="company-filter-bar">
             <input
                 type="text"
                 placeholder="Skill"
                 value={filters.skill}
                 onChange={(e) => setFilters({ ...filters, skill: e.target.value })}
-                style={styles.input}
+                className="company-filter-input"
             />
 
             <input
@@ -16,7 +16,7 @@ function FilterBar({ filters, setFilters, onFilter, onReset }) {
                 placeholder="Degree"
                 value={filters.degree}
                 onChange={(e) => setFilters({ ...filters, degree: e.target.value })}
-                style={styles.input}
+                className="company-filter-input"
             />
 
             <input
@@ -24,44 +24,13 @@ function FilterBar({ filters, setFilters, onFilter, onReset }) {
                 placeholder="Min GPA"
                 value={filters.minGpa}
                 onChange={(e) => setFilters({ ...filters, minGpa: e.target.value })}
-                style={styles.input}
+                className="company-filter-input"
             />
 
-            <button onClick={onFilter} style={styles.filterBtn}>Filter</button>
-            <button onClick={onReset} style={styles.resetBtn}>Reset</button>
+            <button onClick={onFilter} className="company-filter-btn">Filter</button>
+            <button onClick={onReset} className="company-reset-btn">Reset</button>
         </div>
     );
 }
-
-const styles = {
-    container: {
-        display: "flex",
-        gap: "10px",
-        flexWrap: "wrap",
-        marginBottom: "20px"
-    },
-    input: {
-        padding: "10px",
-        width: "180px",
-        borderRadius: "8px",
-        border: "1px solid #ccc"
-    },
-    filterBtn: {
-        padding: "10px 16px",
-        border: "none",
-        borderRadius: "8px",
-        backgroundColor: "#1f7a5c",
-        color: "white",
-        cursor: "pointer"
-    },
-    resetBtn: {
-        padding: "10px 16px",
-        border: "none",
-        borderRadius: "8px",
-        backgroundColor: "#777",
-        color: "white",
-        cursor: "pointer"
-    }
-};
 
 export default FilterBar;

@@ -62,9 +62,9 @@ function CompanyApplicantsPage() {
     }, []);
 
     return (
-        <div style={styles.page}>
-            <h1 style={styles.heading}>Company Applicant Management</h1>
-            <Link to="/student-interviews" style={styles.studentLink}>
+        <div className="company-applicants-page">
+            <h1 className="company-applicants-heading">Company Applicant Management</h1>
+            <Link to="/student-interviews" className="company-applicants-link">
                 Open Student Interview Portal
             </Link>
 
@@ -89,24 +89,5 @@ function CompanyApplicantsPage() {
         </div>
     );
 }
-
-const styles = {
-    page: {
-        minHeight: "100vh",
-        backgroundColor: "#f4f7f8",
-        padding: "30px"
-    },
-    heading: {
-        marginBottom: "20px",
-        color: "#1f3b4d"
-    },
-    studentLink: {
-        display: "inline-block",
-        marginBottom: "18px",
-        color: "#0d6efd",
-        fontWeight: 600,
-        textDecoration: "none"
-    }
-};
 
 export default CompanyApplicantsPage;

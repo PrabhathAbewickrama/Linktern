@@ -37,7 +37,7 @@ function ApplicantCard({ applicant, onStatusChange }) {
     };
 
     return (
-        <div style={styles.card}>
+        <div className="applicant-card">
             <h3>{student.name || applicant.studentName || "Unknown applicant"}</h3>
             <p><strong>Email:</strong> {student.email || applicant.email || "Not provided"}</p>
             <p><strong>University:</strong> {student.university || "Not provided"}</p>
@@ -48,18 +48,18 @@ function ApplicantCard({ applicant, onStatusChange }) {
             <p><strong>Skill Match:</strong> {applicant.skillMatchPercentage ?? 0}%</p>
 
             {applicant.status === "Pending" && (
-                <div style={styles.actions}>
-                    <button onClick={handleApprove} style={styles.approveBtn}>Approve</button>
-                    <button onClick={handleReject} style={styles.rejectBtn}>Reject</button>
+                <div className="applicant-card-actions">
+                    <button onClick={handleApprove} className="applicant-approve-btn">Approve</button>
+                    <button onClick={handleReject} className="applicant-reject-btn">Reject</button>
                 </div>
             )}
 
             {applicant.status === "Shortlisted" && (
                 <>
-                    <div style={styles.actions}>
+                    <div className="applicant-card-actions">
                         <button
                             onClick={() => setShowInterviewForm((value) => !value)}
-                            style={styles.scheduleBtn}
+                            className="applicant-schedule-btn"
                         >
                             {showInterviewForm ? "Hide Slot Form" : "Suggest 4 Interview Slots"}
                         </button>
@@ -77,45 +77,5 @@ function ApplicantCard({ applicant, onStatusChange }) {
         </div>
     );
 }
-
-const styles = {
-    card: {
-        backgroundColor: "#fff",
-        border: "1px solid #ddd",
-        borderRadius: "12px",
-        padding: "20px",
-        marginBottom: "15px",
-        boxShadow: "0 2px 6px rgba(0,0,0,0.08)"
-    },
-    actions: {
-        marginTop: "15px",
-        display: "flex",
-        gap: "10px"
-    },
-    approveBtn: {
-        backgroundColor: "#198754",
-        color: "white",
-        border: "none",
-        borderRadius: "6px",
-        padding: "8px 16px",
-        cursor: "pointer"
-    },
-    rejectBtn: {
-        backgroundColor: "#dc3545",
-        color: "white",
-        border: "none",
-        borderRadius: "6px",
-        padding: "8px 16px",
-        cursor: "pointer"
-    },
-    scheduleBtn: {
-        backgroundColor: "#0d6efd",
-        color: "white",
-        border: "none",
-        borderRadius: "6px",
-        padding: "10px 16px",
-        cursor: "pointer"
-    }
-};
 
 export default ApplicantCard;

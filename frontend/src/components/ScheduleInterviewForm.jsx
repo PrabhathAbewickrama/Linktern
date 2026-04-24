@@ -37,133 +37,89 @@ function ScheduleInterviewForm({ applicationId, onSuccess, onClose }) {
     };
 
     return (
-        <form style={styles.form} onSubmit={submitInterview}>
+        <form className="schedule-form" onSubmit={submitInterview}>
             <h3>Suggest 4 Interview Slots</h3>
 
-            <label style={styles.label}>Option 1</label>
+            <label className="schedule-form-label">Option 1</label>
             <input
                 type="datetime-local"
                 value={form.slot1}
                 onChange={(e) => updateField("slot1", e.target.value)}
                 required
-                style={styles.input}
+                className="schedule-form-input"
             />
 
-            <label style={styles.label}>Option 2</label>
+            <label className="schedule-form-label">Option 2</label>
             <input
                 type="datetime-local"
                 value={form.slot2}
                 onChange={(e) => updateField("slot2", e.target.value)}
                 required
-                style={styles.input}
+                className="schedule-form-input"
             />
 
-            <label style={styles.label}>Option 3</label>
+            <label className="schedule-form-label">Option 3</label>
             <input
                 type="datetime-local"
                 value={form.slot3}
                 onChange={(e) => updateField("slot3", e.target.value)}
                 required
-                style={styles.input}
+                className="schedule-form-input"
             />
 
-            <label style={styles.label}>Option 4</label>
+            <label className="schedule-form-label">Option 4</label>
             <input
                 type="datetime-local"
                 value={form.slot4}
                 onChange={(e) => updateField("slot4", e.target.value)}
                 required
-                style={styles.input}
+                className="schedule-form-input"
             />
 
-            <label style={styles.label}>Mode</label>
+            <label className="schedule-form-label">Mode</label>
             <select
                 value={form.interviewMode}
                 onChange={(e) => updateField("interviewMode", e.target.value)}
-                style={styles.input}
+                className="schedule-form-input"
             >
                 <option value="Online">Online</option>
                 <option value="Physical">Physical</option>
             </select>
 
-            <label style={styles.label}>Meeting Link</label>
+            <label className="schedule-form-label">Meeting Link</label>
             <input
                 type="text"
                 value={form.meetingLink}
                 onChange={(e) => updateField("meetingLink", e.target.value)}
-                style={styles.input}
+                className="schedule-form-input"
                 placeholder="https://..."
                 required={form.interviewMode === "Online"}
             />
 
-            <label style={styles.label}>Location</label>
+            <label className="schedule-form-label">Location</label>
             <input
                 type="text"
                 value={form.location}
                 onChange={(e) => updateField("location", e.target.value)}
-                style={styles.input}
+                className="schedule-form-input"
                 placeholder="Office address"
                 required={form.interviewMode === "Physical"}
             />
 
-            <label style={styles.label}>Notes</label>
+            <label className="schedule-form-label">Notes</label>
             <textarea
                 value={form.notes}
                 onChange={(e) => updateField("notes", e.target.value)}
-                style={styles.input}
+                className="schedule-form-input"
                 placeholder="Additional details"
             />
 
-            <div style={styles.actions}>
-                <button type="submit" style={styles.saveBtn}>Send Slots</button>
-                <button type="button" onClick={onClose} style={styles.cancelBtn}>Cancel</button>
+            <div className="schedule-form-actions">
+                <button type="submit" className="schedule-save-btn">Send Slots</button>
+                <button type="button" onClick={onClose} className="schedule-cancel-btn">Cancel</button>
             </div>
         </form>
     );
 }
-
-const styles = {
-    form: {
-        border: "1px solid #ddd",
-        borderRadius: "12px",
-        padding: "16px",
-        marginTop: "12px",
-        background: "#fff"
-    },
-    label: {
-        display: "block",
-        marginTop: "10px",
-        marginBottom: "4px",
-        fontWeight: 600
-    },
-    input: {
-        width: "100%",
-        padding: "10px",
-        borderRadius: "8px",
-        border: "1px solid #ccc",
-        boxSizing: "border-box"
-    },
-    actions: {
-        display: "flex",
-        gap: "10px",
-        marginTop: "14px"
-    },
-    saveBtn: {
-        background: "#198754",
-        color: "#fff",
-        border: "none",
-        borderRadius: "8px",
-        padding: "10px 14px",
-        cursor: "pointer"
-    },
-    cancelBtn: {
-        background: "#6c757d",
-        color: "#fff",
-        border: "none",
-        borderRadius: "8px",
-        padding: "10px 14px",
-        cursor: "pointer"
-    }
-};
 
 export default ScheduleInterviewForm;
