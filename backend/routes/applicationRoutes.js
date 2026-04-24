@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const Application = require("../models/Application");
+const Internship = require("../models/Internship");
 const { protect, studentOnly } = require("../middleware/authMiddleware");
+const { createNotification } = require("../utils/notificationService");
 const {
     getApplicantsByInternship,
     filterApplicants,
@@ -39,6 +41,40 @@ router.post("/", protect, studentOnly, upload.single("cvFile"), async (req, res)
       studentName: req.user.name,
       email: req.user.email,
       cvFile: req.file.filename
+    });
+
+    const internship = await Internship.findById(req.body.internshipId).select(
+      "title companyName postedBy",
+    );
+
+    if (internship?.postedBy) {
+      await createNotification({
+        recipient: internship.postedBy,
+        actor: studentId,
+        type: "new_application",
+        title: "New internship application",
+        message: `${req.user.name} applied for ${internship.title} at ${internship.companyName}.`,
+        link: "/company-applicants",
+        metadata: {
+          applicationId: application._id,
+          internshipId: internship._id,
+        },
+      });
+    }
+
+    await createNotification({
+      recipient: studentId,
+      actor: internship?.postedBy || null,
+      type: "application_submitted",
+      title: "Application submitted",
+      message: internship
+        ? `Your application for ${internship.title} was submitted successfully.`
+        : "Your internship application was submitted successfully.",
+      link: "/student-interviews",
+      metadata: {
+        applicationId: application._id,
+        internshipId: req.body.internshipId,
+      },
     });
 
     res.status(201).json({

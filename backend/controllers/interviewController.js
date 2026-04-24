@@ -3,6 +3,7 @@ const Interview = require("../models/Interview");
 const Application = require("../models/Application");
 const User = require("../models/User");
 const sendEmail = require("../utils/sendEmail");
+const { createNotification } = require("../utils/notificationService");
 
 const isValidDate = (value) => !Number.isNaN(new Date(value).getTime());
 
@@ -121,6 +122,19 @@ exports.proposeInterview = async (req, res) => {
             console.error("Interview email failed:", emailError.message);
         }
 
+        await createNotification({
+            recipient: student._id,
+            actor: internship?.postedBy || null,
+            type: "interview_slots_shared",
+            title: "Interview slots shared",
+            message: `${internship.companyName} shared interview time slots for ${internship.title}. Choose your preferred slot.`,
+            link: "/student-interviews",
+            metadata: {
+                interviewId: interview._id,
+                applicationId: application._id,
+            },
+        });
+
         res.status(201).json({
             message: emailSent
                 ? "Interview slots sent to the student successfully"
@@ -204,6 +218,19 @@ exports.selectInterviewSlot = async (req, res) => {
         } catch (emailError) {
             console.error("Interview confirmation email failed:", emailError.message);
         }
+
+        await createNotification({
+            recipient: internship.postedBy,
+            actor: student._id,
+            type: "interview_slot_selected",
+            title: "Interview slot selected",
+            message: `${student.name} selected an interview slot for ${internship.title}.`,
+            link: "/company-applicants",
+            metadata: {
+                interviewId: interview._id,
+                applicationId: interview.application._id,
+            },
+        });
 
         res.json({
             message: "Interview slot selected successfully",

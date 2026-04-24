@@ -2,7 +2,6 @@
 > backend@1.0.0 start
 > node server.js
 
-◇ injected env (4) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+◇ injected env (4) from .env // tip: ⌁ auth for agents [www.vestauth.com]
 MongoDB connected
 Server running on port 5000
-role_requirements.csv synchronized with database

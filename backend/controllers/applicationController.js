@@ -2,6 +2,7 @@ const Application = require("../models/Application");
 const Internship = require("../models/Internship");
 const User = require("../models/User");
 const sendEmail = require("../utils/sendEmail");
+const { createNotification } = require("../utils/notificationService");
 
 const calculateSkillMatch = (studentSkills = [], requiredSkills = []) => {
     if (requiredSkills.length === 0) return 0;
@@ -231,6 +232,19 @@ exports.shortlistApplicant = async (req, res) => {
             }
         }
 
+        await createNotification({
+            recipient: application.studentId._id,
+            actor: application.internshipId?.postedBy || null,
+            type: "application_approved",
+            title: "Application approved",
+            message: `Your application for ${application.internshipId.title} at ${application.internshipId.companyName} was approved. Please book a time slot when the company shares interview options.`,
+            link: "/student-interviews",
+            metadata: {
+                applicationId: application._id,
+                internshipId: application.internshipId._id,
+            },
+        });
+
         res.json({
             message: emailSent
                 ? "Applicant approved and email sent successfully"
@@ -258,6 +272,19 @@ exports.rejectApplicant = async (req, res) => {
         if (!application) {
             return res.status(404).json({ message: "Application not found" });
         }
+
+        await createNotification({
+            recipient: application.studentId._id,
+            actor: application.internshipId?.postedBy || null,
+            type: "application_rejected",
+            title: "Application update",
+            message: `Your application for ${application.internshipId.title} at ${application.internshipId.companyName} was not selected this time.`,
+            link: "/feed",
+            metadata: {
+                applicationId: application._id,
+                internshipId: application.internshipId._id,
+            },
+        });
 
         res.json({
             message: "Applicant rejected successfully",

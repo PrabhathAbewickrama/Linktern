@@ -15,6 +15,7 @@ const userRoutes = require("./routes/userRoutes");
 const interviewRoutes = require("./routes/interviewRoutes");
 const postRoutes = require("./routes/postRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 const pdf = require("pdf-parse");
 const Course = require("./models/Course");
 const RoleRequirement = require("./models/RoleRequirement");
@@ -37,6 +38,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/interviews", interviewRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 // Test route
 app.get("/", (req, res) => {

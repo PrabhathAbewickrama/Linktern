@@ -1,9 +1,24 @@
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Moon, Sun } from "lucide-react";
 import { getStoredUser } from "../utils/session";
+import NotificationBell from "./NotificationBell";
 
 function Navbar() {
   const navigate = useNavigate();
   const user = getStoredUser();
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("theme") || "light",
+  );
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -47,6 +62,17 @@ function Navbar() {
               <Link to="/admin-dashboard">Admin Dashboard</Link>
             )}
 
+            <button
+              type="button"
+              className="theme-toggle-btn"
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+              <span>{theme === "dark" ? "Light" : "Dark"}</span>
+            </button>
+
+            <NotificationBell />
             <Link to="/profile">Profile</Link>
             <div className="user-info">
               {user.profilePicture && (
