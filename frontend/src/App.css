@@ -87,6 +87,126 @@ body {
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
+.company-applicants-page {
+  min-height: 100vh;
+  padding: 30px;
+  background: transparent;
+  color: var(--app-text);
+}
+
+.company-applicants-heading {
+  margin-bottom: 20px;
+  color: var(--app-text);
+}
+
+.company-applicants-link {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: var(--app-primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.company-filter-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.company-filter-input,
+.schedule-form-input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--app-border);
+  background: var(--app-surface-strong);
+  color: var(--app-text);
+  outline: none;
+}
+
+.company-filter-input {
+  width: 180px;
+}
+
+.company-filter-btn,
+.company-reset-btn,
+.applicant-approve-btn,
+.applicant-reject-btn,
+.applicant-schedule-btn,
+.schedule-save-btn,
+.schedule-cancel-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.company-filter-btn,
+.applicant-approve-btn,
+.schedule-save-btn {
+  background: #198754;
+  color: white;
+}
+
+.company-reset-btn,
+.schedule-cancel-btn {
+  background: #6b7280;
+  color: white;
+}
+
+.applicant-reject-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.applicant-schedule-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.applicant-card,
+.schedule-form {
+  background: var(--app-surface-strong);
+  border: 1px solid var(--app-border);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--app-shadow);
+  color: var(--app-text);
+}
+
+.applicant-card h3,
+.schedule-form h3 {
+  margin: 0 0 12px;
+  color: var(--app-text);
+}
+
+.applicant-card p {
+  margin: 0 0 6px;
+  color: var(--app-muted);
+}
+
+.applicant-card strong {
+  color: var(--app-text);
+}
+
+.applicant-card-actions,
+.schedule-form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.schedule-form-label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: var(--app-text);
+}
+
 /* Form UI */
 .page-wrapper {
   min-height: 100vh;
