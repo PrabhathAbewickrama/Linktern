@@ -1,0 +1,27 @@
+course_name,skills_covered,difficulty,link
+HTML & CSS for Beginners,"html, css, responsive design",Low,https://www.freecodecamp.org/learn/2022/responsive-web-design/
+Intro to JavaScript,"javascript, html, css",Low,https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/
+React Basics,"react, javascript",Medium,https://www.udemy.com/course/react-the-complete-guide-incl-redux/
+Advanced React Patterns,"react, javascript",High,https://frontendmasters.com/courses/advanced-react-patterns/
+Node.js Fundamentals,"node.js, express.js, javascript",Medium,https://www.udemy.com/course/nodejs-the-complete-guide/
+Building REST APIs with Node,"node.js, express.js, rest api, javascript",Medium,https://www.freecodecamp.org/news/build-a-restful-api-using-node-express-and-mongodb/
+MongoDB for Developers,"mongodb, nosql",Medium,https://university.mongodb.com/courses/M001/about
+Full Stack Web Development Boot Camp,"html, css, javascript, react, node.js, mongodb, express.js, rest api",High,https://www.udemy.com/course/the-complete-web-development-bootcamp/
+Git & GitHub Crash Course,"git, version control",Low,https://www.youtube.com/watch?v=RGOj5yH7evk
+Intro to Python Programming,"python",Low,https://www.freecodecamp.org/learn/scientific-computing-with-python/
+Python for Data Science,"python, numpy, pandas, data preprocessing",Medium,https://www.coursera.org/learn/python-for-applied-data-science-ai
+Machine Learning with Scikit-Learn,"python, scikit-learn, machine learning",High,https://www.coursera.org/learn/machine-learning-with-python
+Data Visualization with Python,"python, data visualization, matplotlib",Medium,https://www.coursera.org/learn/python-for-data-visualization
+Excel Data Analysis,"excel, data analysis",Low,https://www.coursera.org/learn/excel-data-analysis
+SQL for Beginners,"sql, databases",Low,https://www.w3schools.com/sql/
+Advanced SQL Queries,"sql, data analysis",Medium,https://mode.com/sql-tutorial/
+Power BI Masterclass,"power bi, data visualization, data analysis",Medium,https://www.udemy.com/course/microsoft-power-bi-up-running-with-power-bi-desktop/
+Statistics for Data Science,"statistics, python",High,https://www.coursera.org/learn/statistics-for-data-science
+Figma UI Design Tutorial,"figma, ui design, typography, color theory",Low,https://www.youtube.com/watch?v=FTFaQWZBqQ8
+UX Research and Wireframing,"wireframing, user research, prototyping",Medium,https://www.coursera.org/learn/user-experience-research-and-design
+Complete UI/UX Bootcamp,"figma, wireframing, prototyping, user research, typography, color theory",High,https://www.udemy.com/course/ui-ux-design-bootcamp/
+Learn Manual Testing,"manual testing, test cases, bug reporting",Low,https://www.guru99.com/manual-testing.html
+Postman API Testing,"postman, api testing, rest api",Medium,https://learning.postman.com/docs/getting-started/introduction/
+Selenium Automation Testing,"selenium, java, python",High,https://www.udemy.com/course/selenium-webdriver-with-java/
+Deep Dive into JWT Authentication,"jwt, security, node.js",High,https://jwt.io/introduction/
+Responsive Web Design Certification,"html, css, responsive design",Medium,https://www.freecodecamp.org/learn/2022/responsive-web-design/

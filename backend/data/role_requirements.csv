@@ -1,0 +1,65 @@
+role,skill,type
+Data Analyst,python,required
+Data Analyst,sql,required
+Data Analyst,statistics,required
+Data Analyst,tableau,required
+Data Analyst,excel,required
+Data Analyst,machine learning,preferred
+Data Analyst,r,preferred
+Data Analyst,powerbi,preferred
+Data Analyst,data visualization,preferred
+Data Scientist,deep learning,required
+Data Scientist,sql,required
+Data Scientist,statistics,required
+Data Scientist,machine learning,required
+Data Scientist,python,required
+Data Scientist,nlp,preferred
+Data Scientist,tensorflow,preferred
+Data Scientist,pytorch,preferred
+Data Scientist,computer vision,preferred
+Product Manager,agile,required
+Product Manager,scrum,required
+Product Manager,product strategy,required
+Product Manager,communication,required
+Product Manager,jira,required
+Product Manager,data analysis,preferred
+Product Manager,ux design,preferred
+Product Manager,market research,preferred
+Product Manager,roadmapping,preferred
+Software Engineer,python,required
+Software Engineer,javascript,required
+Software Engineer,data structures,required
+Software Engineer,algorithms,required
+Software Engineer,java,required
+Software Engineer,aws,preferred
+Software Engineer,git,preferred
+Software Engineer,docker,preferred
+Software Engineer,node.js,preferred
+Software Engineer,react,preferred
+Softwere engineer,java,required
+Softwere engineer,phython,required
+Softwere engineer,react,preferred
+Test Automation Engineer,Selenium,required
+Test Automation Engineer,JavaScript,preferred
+Test Automation Engineer,Cypress,preferred
+UX Designer,ui design,required
+UX Designer,user research,required
+UX Designer,prototyping,required
+UX Designer,wireframing,required
+UX Designer,figma,required
+UX Designer,css,preferred
+UX Designer,html,preferred
+UX Designer,adobe xd,preferred
+UX Designer,interaction design,preferred
+bbbbbbbbbbb,bbbbbb,required
+bbbbbbbbbbb,bbbbb,required
+bbbbbbbbbbb,hhhhhhh,required
+bbbbbbbbbbb,hhhh,required
+bbbbbbbbbbb,b,preferred
+bbbbbbbbbbb,bbbb,preferred
+frontend,javascript,required
+frontend,react.js,preferred
+qa,htwhtwht,required
+qa,jejyj,preferred
+rgorgjrgo,ug7fifohpy[09t[,required
+rgorgjrgo,fegfofhoefjefjpef,preferred
