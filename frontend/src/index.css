@@ -1463,6 +1463,347 @@ a {
   margin-top: 30px;
 }
 
+.company-applicants-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.company-applicants-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  padding: 28px 30px;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.18), transparent 28%),
+    linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.88));
+  color: #f8fafc;
+  box-shadow: var(--app-shadow);
+}
+
+.company-applicants-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.company-applicants-heading {
+  margin: 14px 0 10px;
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  line-height: 1.05;
+  color: #ffffff;
+}
+
+.company-applicants-subtitle {
+  max-width: 700px;
+  color: rgba(226, 232, 240, 0.88);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.company-applicants-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  min-width: 230px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 18px 30px rgba(37, 99, 235, 0.25);
+}
+
+.company-applicants-link:hover {
+  filter: brightness(1.05);
+}
+
+.company-filter-bar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 22px;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--app-shadow);
+  backdrop-filter: blur(12px);
+}
+
+.company-filter-field {
+  min-width: 0;
+}
+
+.company-filter-input {
+  width: 100%;
+  padding: 13px 15px;
+  border-radius: 14px;
+  border: 1px solid var(--app-border);
+  background: var(--app-surface-strong);
+  color: var(--app-text);
+  font-size: 15px;
+  outline: none;
+}
+
+.company-filter-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+}
+
+.company-filter-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.company-filter-btn,
+.company-reset-btn,
+.applicant-approve-btn,
+.applicant-reject-btn,
+.applicant-schedule-btn,
+.schedule-save-btn,
+.schedule-cancel-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 13px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.company-filter-btn,
+.applicant-schedule-btn,
+.schedule-save-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  box-shadow: 0 14px 26px rgba(37, 99, 235, 0.24);
+}
+
+.company-reset-btn,
+.schedule-cancel-btn {
+  background: var(--app-surface-soft);
+  color: var(--app-text);
+  border: 1px solid var(--app-border);
+}
+
+.applicant-approve-btn {
+  background: linear-gradient(135deg, #22c55e, #15803d);
+  color: #ffffff;
+  box-shadow: 0 14px 26px rgba(34, 197, 94, 0.22);
+}
+
+.applicant-reject-btn {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: #ffffff;
+  box-shadow: 0 14px 26px rgba(239, 68, 68, 0.22);
+}
+
+.company-filter-btn:hover,
+.company-reset-btn:hover,
+.applicant-approve-btn:hover,
+.applicant-reject-btn:hover,
+.applicant-schedule-btn:hover,
+.schedule-save-btn:hover,
+.schedule-cancel-btn:hover {
+  transform: translateY(-1px);
+}
+
+.company-applicants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 22px;
+}
+
+.company-applicants-empty {
+  padding: 40px 28px;
+  border-radius: 24px;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  text-align: center;
+  box-shadow: var(--app-shadow);
+}
+
+.company-applicants-empty h3 {
+  margin-bottom: 10px;
+  color: var(--app-text);
+}
+
+.company-applicants-empty p {
+  color: var(--app-muted);
+}
+
+.applicant-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 24px;
+  background: var(--app-surface-strong);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--app-shadow);
+}
+
+.applicant-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.applicant-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.applicant-title-block {
+  min-width: 0;
+  flex: 1;
+}
+
+.applicant-title-block h3 {
+  margin: 0;
+  color: var(--app-text);
+  font-size: 24px;
+}
+
+.applicant-title-block p {
+  margin: 6px 0 0;
+  color: var(--app-muted);
+  word-break: break-word;
+}
+
+.applicant-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.applicant-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.applicant-meta-item {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: var(--app-surface-soft);
+  border: 1px solid var(--app-border);
+}
+
+.applicant-meta-item span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--app-muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.applicant-meta-item strong {
+  color: var(--app-text);
+  font-size: 16px;
+}
+
+.applicant-section-label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--app-muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.applicant-skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.applicant-skill-chip,
+.applicant-skill-empty {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: var(--app-surface-soft);
+  border: 1px solid var(--app-border);
+  color: var(--app-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.applicant-skill-empty {
+  color: var(--app-muted);
+}
+
+.applicant-card-actions,
+.schedule-form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.schedule-form {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 22px;
+  background: var(--app-surface-soft);
+  border: 1px solid var(--app-border);
+}
+
+.schedule-form h3 {
+  margin-bottom: 6px;
+  color: var(--app-text);
+  font-size: 20px;
+}
+
+.schedule-form-label {
+  color: var(--app-text);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.schedule-form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--app-border);
+  background: var(--app-surface-strong);
+  color: var(--app-text);
+  outline: none;
+}
+
+.schedule-form-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+}
+
 @media (max-width: 900px) {
   .filter-box {
     grid-template-columns: 1fr 1fr;
@@ -1483,6 +1824,24 @@ a {
     gap: 12px;
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .company-applicants-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .company-filter-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .company-filter-actions {
+    width: 100%;
+  }
+
+  .company-filter-btn,
+  .company-reset-btn {
+    flex: 1;
   }
 }
 
@@ -1506,5 +1865,40 @@ a {
 
   .list-header p {
     font-size: 17px;
+  }
+
+  .company-applicants-page {
+    gap: 18px;
+  }
+
+  .company-applicants-hero {
+    padding: 22px 20px;
+    border-radius: 22px;
+  }
+
+  .company-applicants-link {
+    width: 100%;
+  }
+
+  .applicant-card {
+    padding: 20px;
+  }
+
+  .applicant-card-header {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .applicant-status-badge {
+    width: fit-content;
+  }
+
+  .applicant-meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .applicant-card-actions,
+  .schedule-form-actions {
+    flex-direction: column;
   }
 }

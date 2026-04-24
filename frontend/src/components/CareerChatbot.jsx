@@ -12,6 +12,19 @@ const QUICK_PROMPTS = [
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function CareerChatbot() {
+  const storedUser = localStorage.getItem("user");
+  let currentUser = null;
+
+  try {
+    currentUser = storedUser ? JSON.parse(storedUser) : null;
+  } catch {
+    currentUser = null;
+  }
+
+  if (!currentUser || currentUser.role !== "student") {
+    return null;
+  }
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {

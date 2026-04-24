@@ -36,16 +36,63 @@ function ApplicantCard({ applicant, onStatusChange }) {
         }
     };
 
+    const displayName = student.name || applicant.studentName || "Unknown applicant";
+    const initials = displayName
+        .split(" ")
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((part) => part[0]?.toUpperCase())
+        .join("") || "NA";
+
     return (
         <div className="applicant-card">
-            <h3>{student.name || applicant.studentName || "Unknown applicant"}</h3>
-            <p><strong>Email:</strong> {student.email || applicant.email || "Not provided"}</p>
-            <p><strong>University:</strong> {student.university || "Not provided"}</p>
-            <p><strong>Degree:</strong> {student.degree || "Not provided"}</p>
-            <p><strong>GPA:</strong> {student.gpa ?? "Not provided"}</p>
-            <p><strong>Skills:</strong> {skills.length > 0 ? skills.join(", ") : "Not provided"}</p>
-            <p><strong>Status:</strong> <span style={{ color: getStatusColor(applicant.status) }}>{applicant.status}</span></p>
-            <p><strong>Skill Match:</strong> {applicant.skillMatchPercentage ?? 0}%</p>
+            <div className="applicant-card-header">
+                <div className="applicant-avatar">{initials}</div>
+                <div className="applicant-title-block">
+                    <h3>{displayName}</h3>
+                    <p>{student.email || applicant.email || "Not provided"}</p>
+                </div>
+                <span
+                    className="applicant-status-badge"
+                    style={{ color: getStatusColor(applicant.status) }}
+                >
+                    {applicant.status}
+                </span>
+            </div>
+
+            <div className="applicant-meta-grid">
+                <div className="applicant-meta-item">
+                    <span>University</span>
+                    <strong>{student.university || "Not provided"}</strong>
+                </div>
+                <div className="applicant-meta-item">
+                    <span>Degree</span>
+                    <strong>{student.degree || "Not provided"}</strong>
+                </div>
+                <div className="applicant-meta-item">
+                    <span>GPA</span>
+                    <strong>{student.gpa ?? "Not provided"}</strong>
+                </div>
+                <div className="applicant-meta-item">
+                    <span>Skill Match</span>
+                    <strong>{applicant.skillMatchPercentage ?? 0}%</strong>
+                </div>
+            </div>
+
+            <div className="applicant-skill-block">
+                <span className="applicant-section-label">Skills</span>
+                <div className="applicant-skill-list">
+                    {skills.length > 0 ? (
+                        skills.map((skill) => (
+                            <span key={skill} className="applicant-skill-chip">
+                                {skill}
+                            </span>
+                        ))
+                    ) : (
+                        <span className="applicant-skill-empty">Not provided</span>
+                    )}
+                </div>
+            </div>
 
             {applicant.status === "Pending" && (
                 <div className="applicant-card-actions">

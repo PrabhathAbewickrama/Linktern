@@ -63,10 +63,19 @@ function CompanyApplicantsPage() {
 
     return (
         <div className="company-applicants-page">
-            <h1 className="company-applicants-heading">Company Applicant Management</h1>
-            <Link to="/student-interviews" className="company-applicants-link">
-                Open Student Interview Portal
-            </Link>
+            <div className="company-applicants-hero">
+                <div>
+                    <span className="company-applicants-eyebrow">Hiring Workspace</span>
+                    <h1 className="company-applicants-heading">Company Applicant Management</h1>
+                    <p className="company-applicants-subtitle">
+                        Review student profiles, filter candidates quickly, and move promising
+                        applicants into interview scheduling.
+                    </p>
+                </div>
+                <Link to="/student-interviews" className="company-applicants-link">
+                    Open Student Interview Portal
+                </Link>
+            </div>
 
             <FilterBar
                 filters={filters}
@@ -76,15 +85,20 @@ function CompanyApplicantsPage() {
             />
 
             {applicants.length === 0 ? (
-                <p>No applicants found.</p>
+                <div className="company-applicants-empty">
+                    <h3>No applicants found</h3>
+                    <p>Try adjusting the filters or wait for new internship applications.</p>
+                </div>
             ) : (
-                applicants.map((applicant) => (
-                    <ApplicantCard
-                        key={applicant._id}
-                        applicant={applicant}
-                        onStatusChange={fetchApplicants}
-                    />
-                ))
+                <div className="company-applicants-grid">
+                    {applicants.map((applicant) => (
+                        <ApplicantCard
+                            key={applicant._id}
+                            applicant={applicant}
+                            onStatusChange={fetchApplicants}
+                        />
+                    ))}
+                </div>
             )}
         </div>
     );
