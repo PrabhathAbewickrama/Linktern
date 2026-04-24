@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getStoredUser } from "../utils/session";
 
 function ApplyForm() {
@@ -13,11 +13,76 @@ function ApplyForm() {
   });
 
   const [errors, setErrors] = useState({});
+  const [profileLoading, setProfileLoading] = useState(true);
+  const [profileUser, setProfileUser] = useState(null);
   const token = localStorage.getItem("token");
   const user = getStoredUser();
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!token || !user || user.role !== "student") {
+        setProfileLoading(false);
+        return;
+      }
+
+      try {
+        const res = await axios.get("http://localhost:5000/api/users/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setProfileUser(res.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setProfileLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [token, user]);
+
   if (!user || user.role !== "student") {
     return <p>Only registered students can apply for internships.</p>;
+  }
+
+  if (profileLoading) {
+    return <p>Loading your profile...</p>;
+  }
+
+  const activeStudent = profileUser || user;
+  const profileComplete =
+    Boolean(String(activeStudent?.name || "").trim()) &&
+    Boolean(String(activeStudent?.email || "").trim()) &&
+    Boolean(String(activeStudent?.university || "").trim()) &&
+    Boolean(String(activeStudent?.degree || "").trim()) &&
+    Number(activeStudent?.gpa || 0) > 0 &&
+    Array.isArray(activeStudent?.skills) &&
+    activeStudent.skills.length > 0;
+
+  if (!profileComplete) {
+    return (
+      <div className="page-wrapper">
+        <div className="form-card">
+          <div className="form-header">
+            <h1>Update Your Profile First</h1>
+            <p>
+              Before applying for an internship, please complete your student profile
+              details.
+            </p>
+          </div>
+
+          <div className="message error-message">
+            Update your university, degree, GPA, and skills in your profile before
+            submitting an application.
+          </div>
+
+          <Link to="/profile" className="submit-btn" style={{ textAlign: "center" }}>
+            Go to Profile
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   const validate = () => {

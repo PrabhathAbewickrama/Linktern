@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const Application = require("../models/Application");
 const Internship = require("../models/Internship");
+const User = require("../models/User");
 const { protect, studentOnly } = require("../middleware/authMiddleware");
 const { createNotification } = require("../utils/notificationService");
 const {
@@ -33,6 +34,26 @@ router.post("/", protect, studentOnly, upload.single("cvFile"), async (req, res)
 
     if (!studentId) {
       return res.status(500).json({ message: "Unable to determine student ID from token" });
+    }
+
+    const student = await User.findById(studentId).select(
+      "name email university degree gpa skills",
+    );
+
+    const profileComplete =
+      Boolean(String(student?.name || "").trim()) &&
+      Boolean(String(student?.email || "").trim()) &&
+      Boolean(String(student?.university || "").trim()) &&
+      Boolean(String(student?.degree || "").trim()) &&
+      Number(student?.gpa || 0) > 0 &&
+      Array.isArray(student?.skills) &&
+      student.skills.length > 0;
+
+    if (!profileComplete) {
+      return res.status(400).json({
+        message:
+          "Please update your profile details before applying for internships.",
+      });
     }
 
     const application = await Application.create({

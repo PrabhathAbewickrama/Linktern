@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const sendEmail = require("../utils/sendEmail");
+const { createNotification } = require("../utils/notificationService");
 
 const router = express.Router();
 const EMAIL_VERIFICATION_TTL_MS = 10 * 60 * 1000;
@@ -149,6 +150,18 @@ router.post("/register/student", async (req, res) => {
     existingUser.emailVerificationExpiresAt = null;
 
     const user = await existingUser.save();
+
+    await createNotification({
+      recipient: user._id,
+      type: "profile_reminder",
+      title: "Complete your student profile",
+      message:
+        "Welcome to Linktern. Update your university, degree, GPA, and skills before applying for internships.",
+      link: "/profile",
+      metadata: {
+        userId: user._id,
+      },
+    });
 
     res.status(201).json({
       message: "Student registered successfully",
