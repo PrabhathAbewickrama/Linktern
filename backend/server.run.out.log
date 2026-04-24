@@ -5,3 +5,4 @@
 ◇ injected env (4) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
 MongoDB connected
 Server running on port 5000
+role_requirements.csv synchronized with database
