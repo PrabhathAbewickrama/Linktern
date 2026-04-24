@@ -1397,6 +1397,7 @@ a {
 }
 
 .page-wrapper {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1405,15 +1406,17 @@ a {
 
 .form-card {
   width: 100%;
-  max-width: 520px;
-  background: white;
+  max-width: 650px;
+  background: var(--app-surface-strong);
   border-radius: 18px;
   padding: 30px;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--app-shadow);
 }
 
 .form-header h1 {
   margin-bottom: 8px;
+  color: var(--app-text);
 }
 
 .form-header p {

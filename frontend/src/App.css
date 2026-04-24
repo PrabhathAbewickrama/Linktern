@@ -15,11 +15,6 @@ html[data-theme="light"] {
   --app-surface-soft: #f8fafc;
   --app-border: rgba(148, 163, 184, 0.18);
   --app-shadow: 0 18px 32px rgba(15, 23, 42, 0.08);
-  --app-primary: #2563eb;
-  --app-primary-strong: #1d4ed8;
-  --app-button: #0f172a;
-  --app-button-text: #ffffff;
-  --app-button-hover: #1e293b;
 }
 
 html[data-theme="dark"] {
@@ -34,11 +29,6 @@ html[data-theme="dark"] {
   --app-surface-soft: #1e293b;
   --app-border: rgba(148, 163, 184, 0.16);
   --app-shadow: 0 18px 32px rgba(2, 6, 23, 0.34);
-  --app-primary: #60a5fa;
-  --app-primary-strong: #93c5fd;
-  --app-button: #dbeafe;
-  --app-button-text: #0f172a;
-  --app-button-hover: #bfdbfe;
 }
 
 body {
@@ -46,7 +36,6 @@ body {
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   background: var(--app-bg);
   color: var(--app-text);
-  transition: background 0.25s ease, color 0.25s ease;
 }
 
 .app-shell {
@@ -86,126 +75,6 @@ body {
 .filter-input:focus {
   border-color: #4f46e5;
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
-}
-
-.company-applicants-page {
-  min-height: 100vh;
-  padding: 30px;
-  background: transparent;
-  color: var(--app-text);
-}
-
-.company-applicants-heading {
-  margin-bottom: 20px;
-  color: var(--app-text);
-}
-
-.company-applicants-link {
-  display: inline-block;
-  margin-bottom: 18px;
-  color: var(--app-primary);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.company-filter-bar {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.company-filter-input,
-.schedule-form-input {
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--app-border);
-  background: var(--app-surface-strong);
-  color: var(--app-text);
-  outline: none;
-}
-
-.company-filter-input {
-  width: 180px;
-}
-
-.company-filter-btn,
-.company-reset-btn,
-.applicant-approve-btn,
-.applicant-reject-btn,
-.applicant-schedule-btn,
-.schedule-save-btn,
-.schedule-cancel-btn {
-  border: none;
-  border-radius: 10px;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-weight: 700;
-}
-
-.company-filter-btn,
-.applicant-approve-btn,
-.schedule-save-btn {
-  background: #198754;
-  color: white;
-}
-
-.company-reset-btn,
-.schedule-cancel-btn {
-  background: #6b7280;
-  color: white;
-}
-
-.applicant-reject-btn {
-  background: #dc3545;
-  color: white;
-}
-
-.applicant-schedule-btn {
-  background: #2563eb;
-  color: white;
-}
-
-.applicant-card,
-.schedule-form {
-  background: var(--app-surface-strong);
-  border: 1px solid var(--app-border);
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 16px;
-  box-shadow: var(--app-shadow);
-  color: var(--app-text);
-}
-
-.applicant-card h3,
-.schedule-form h3 {
-  margin: 0 0 12px;
-  color: var(--app-text);
-}
-
-.applicant-card p {
-  margin: 0 0 6px;
-  color: var(--app-muted);
-}
-
-.applicant-card strong {
-  color: var(--app-text);
-}
-
-.applicant-card-actions,
-.schedule-form-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-}
-
-.schedule-form-label {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 6px;
-  font-weight: 700;
-  color: var(--app-text);
 }
 
 /* Form UI */
@@ -279,7 +148,7 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: #4f46e5;
-  background: #ffffff;
+  background: var(--app-surface-strong);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
